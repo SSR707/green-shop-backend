@@ -27,15 +27,9 @@ export class UserEntity extends BaseEntity {
   @Column({ type: 'boolean', name: 'is_active', default: false })
   is_active: boolean;
 
-  @OneToMany(() => AddressEntity, (address) => address.user , {
-    onDelete: 'CASCADE',
-    onUpdate: 'CASCADE',
-  })
+  @OneToMany(() => AddressEntity, (address) => address.user)
   address: AddressEntity[];
 
-  @OneToMany(() => ReviewsEntity, (reviews) => reviews.user , {
-    onDelete: 'CASCADE',
-    onUpdate: 'CASCADE',
-  })
+  @OneToMany(() => ReviewsEntity, (reviews) => reviews.user)
   reviews: ReviewsEntity[];
 }

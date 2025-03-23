@@ -87,7 +87,7 @@ export class ReviewsService {
   }
 
   async update(id: string, updateReviewDto: UpdateReviewDto) {
-    try {
+
       const currentReview = await this.reviewsRepository.findOne({
         where: { id },
       });
@@ -102,13 +102,11 @@ export class ReviewsService {
         status_code: HttpStatus.OK,
         message: 'success',
       };
-    } catch (error) {
-      throw new BadRequestException(`Error on update reviews: ${error}`);
-    }
+
   }
 
   async remove(id: string) {
-    try {
+
       const currentReview = await this.reviewsRepository.findOne({
         where: { id },
       });
@@ -120,8 +118,6 @@ export class ReviewsService {
         status_code: HttpStatus.OK,
         message: 'success',
       };
-    } catch (error) {
-      throw new BadRequestException(`Error on delete reviews: ${error}`);
-    }
+
   }
 }

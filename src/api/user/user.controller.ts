@@ -64,11 +64,11 @@ export class UserController {
   })
   @ApiResponse({
     status: HttpStatus.BAD_REQUEST,
-    description: 'Failed fetchin stores',
+    description: 'Failed fetchin users',
     schema: {
       example: {
         status_code: HttpStatus.BAD_REQUEST,
-        message: 'Error on fetching stores',
+        message: 'Error on fetching user',
       },
     },
   })

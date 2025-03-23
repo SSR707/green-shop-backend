@@ -109,13 +109,11 @@ export class ProductService {
         },
       };
     } catch (error) {
-      console.log(error);
       throw new BadRequestException(`Error uploading image: ${error.message}`);
     }
   }
 
   async update(id: string, updateProductDto: UpdateProductDto) {
-    try {
       const currentProduct = await this.productRepository.findOne({
         where: { id },
       });
@@ -130,13 +128,10 @@ export class ProductService {
         status_code: HttpStatus.OK,
         message: 'success',
       };
-    } catch (error) {
-      throw new BadRequestException(`Error on update product: ${error}`);
-    }
+
   }
 
   async remove(id: string) {
-    try {
       const currentProduct = await this.productRepository.findOne({
         where: { id },
       });
@@ -148,8 +143,5 @@ export class ProductService {
         status_code: HttpStatus.OK,
         message: 'success',
       };
-    } catch (error) {
-      throw new BadRequestException(`Error on delete product: ${error}`);
-    }
   }
 }

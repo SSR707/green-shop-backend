@@ -110,7 +110,6 @@ export class UserService {
   }
 
   async update(id: string, updateUserDto: UpdateUserDto) {
-    try {
       const currentUser = await this.userRepository.findOne({ where: { id } });
       if (!currentUser) {
         throw new NotFoundException(`User with id ${id} not found.`);
@@ -128,15 +127,11 @@ export class UserService {
         status_code: HttpStatus.OK,
         message: 'success',
       };
-    } catch (error) {
-      throw new BadRequestException(
-        `Error on update profile of user: ${error}`,
-      );
-    }
+
   }
 
   async remove(id: string) {
-    try {
+
       const currentUser = await this.userRepository.findOne({ where: { id } });
       if (!currentUser) {
         throw new NotFoundException(`User with id ${id} not found.`);
@@ -146,8 +141,6 @@ export class UserService {
         status_code: HttpStatus.OK,
         message: 'success',
       };
-    } catch (error) {
-      throw new BadRequestException(`Error on delete  of user: ${error}`);
-    }
+
   }
 }

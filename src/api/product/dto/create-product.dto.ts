@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import {
+  IsEnum,
   IsNotEmpty,
   IsNumber,
   IsOptional,
@@ -7,6 +8,7 @@ import {
   IsString,
   IsUUID,
 } from 'class-validator';
+import { ProductDiscountEnum } from 'src/common';
 
 export class CreateProductDto {
   @ApiProperty({
@@ -112,39 +114,42 @@ export class CreateProductDto {
   price: number;
 
   @ApiProperty({
-    type: String,
+    enum: ProductDiscountEnum,
     description: 'Discount type of Product',
-    example: '1',
+    example: 'fixed',
   })
-  @IsString({
+  @IsEnum(ProductDiscountEnum, {
     message: JSON.stringify({
       type: 'discount_type',
-      message: 'Discount type must be a string',
+      message: 'Discount type must be either "fixed" or "percentage"',
     }),
   })
   @IsOptional()
-  discount_type: string;
+  discount_type: ProductDiscountEnum;
+
 
   @ApiProperty({
-    type: String,
-    description: ' Discount Value of Product',
-    example: 'skidka 20%',
+    type: Number,
+    description: 'Discount Value of Product',
+    example: 20, 
   })
-  @IsString({
+  @IsNumber({}, {
     message: JSON.stringify({
       type: 'discount_value',
-      message: 'Discount value must be a string',
+      message: 'Discount value must be a number',
     }),
   })
   @IsOptional()
-  discount_value: string;
+  discount_value: number;
 
   @ApiProperty({
     type: String,
     description: 'Tags of Product',
     example: 'tags...',
   })
-  @IsString({ message: JSON.stringify({ type: 'tags', message: 'Tags must be a string' }) })
+  @IsString({
+    message: JSON.stringify({ type: 'tags', message: 'Tags must be a string' }),
+  })
   @IsOptional()
   tags: string;
 }

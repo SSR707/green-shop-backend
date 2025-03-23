@@ -40,7 +40,6 @@ export class AuthService {
       password,
       currentUser.password,
     );
-    console.log(is_match_pass);
     if (!is_match_pass) {
       return {
         status_code: HttpStatus.NOT_FOUND,

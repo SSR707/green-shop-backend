@@ -18,7 +18,7 @@ export class CategoryService {
   async create(createCategoryDto: CreateCategoryDto) {
     try {
       const category = this.categoryRepository.create(createCategoryDto);
-      this.categoryRepository.save(category);
+      await this.categoryRepository.save(category);
       return {
         status_code: HttpStatus.CREATED,
         message: 'Created',
@@ -56,41 +56,33 @@ export class CategoryService {
   }
 
   async update(id: string, updateCategoryDto: UpdateCategoryDto) {
-    try {
-      const currentCategory = await this.categoryRepository.findOne({
-        where: { id },
-      });
-      if (!currentCategory) {
-        throw new NotFoundException(`Category with id ${id} not found.`);
-      }
-      await this.categoryRepository.update(id, {
-        ...updateCategoryDto,
-        updated_at: Date.now(),
-      });
-      return {
-        status_code: HttpStatus.OK,
-        message: 'success',
-      };
-    } catch (error) {
-      throw new BadRequestException(`Error on update categiry: ${error}`);
+    const currentCategory = await this.categoryRepository.findOne({
+      where: { id },
+    });
+    if (!currentCategory) {
+      throw new NotFoundException(`Category with id ${id} not found.`);
     }
+    await this.categoryRepository.update(id, {
+      ...updateCategoryDto,
+      updated_at: Date.now(),
+    });
+    return {
+      status_code: HttpStatus.OK,
+      message: 'success',
+    };
   }
 
   async remove(id: string) {
-    try {
-      const currentCategory = await this.categoryRepository.findOne({
-        where: { id },
-      });
-      if (!currentCategory) {
-        throw new NotFoundException(`Category with id ${id} not found.`);
-      }
-      await this.categoryRepository.delete(id);
-      return {
-        status_code: HttpStatus.OK,
-        message: 'success',
-      };
-    } catch (error) {
-      throw new BadRequestException(`Error on delete   categoiry: ${error}`);
+    const currentCategory = await this.categoryRepository.findOne({
+      where: { id },
+    });
+    if (!currentCategory) {
+      throw new NotFoundException(`Category with id ${id} not found.`);
     }
+    await this.categoryRepository.delete(id);
+    return {
+      status_code: HttpStatus.OK,
+      message: 'success',
+    };
   }
 }

@@ -48,7 +48,7 @@ export class AddressService {
   }
 
   async findAll() {
-    const address = await this.addressRepository.find();
+    const address = await this.addressRepository.find({relations : ['user']});
     return {
       status_code: HttpStatus.OK,
       message: 'success',
@@ -71,7 +71,6 @@ export class AddressService {
   }
 
   async update(id: string, updateAddressDto: UpdateAddressDto) {
-    try {
       const currentAddress = await this.addressRepository.findOne({
         where: { id },
       });
@@ -86,13 +85,9 @@ export class AddressService {
         status_code: HttpStatus.OK,
         message: 'success',
       };
-    } catch (error) {
-      throw new BadRequestException(`Error on update address: ${error}`);
-    }
   }
 
   async remove(id: string) {
-    try {
       const currentAddress = await this.addressRepository.findOne({
         where: { id },
       });
@@ -104,8 +99,5 @@ export class AddressService {
         status_code: HttpStatus.OK,
         message: 'success',
       };
-    } catch (error) {
-      throw new BadRequestException(`Error on delete address: ${error}`);
-    }
   }
 }

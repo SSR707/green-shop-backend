@@ -2,9 +2,10 @@ import { BaseEntity } from 'src/common/database/BaseEntity';
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
 import { CategoryEntity } from './category.entity';
 import { ReviewsEntity } from './reviews.entity';
+import { ProductDiscountEnum } from 'src/common';
 @Entity('product')
 export class ProductEntity extends BaseEntity {
-  @Column({ type: 'uuid', name: 'category_id', nullable: true })
+  @Column({ type: 'uuid', name: 'category_id' })
   category_id: string;
 
   @Column({ type: 'varchar', name: 'title', nullable: true })
@@ -28,22 +29,28 @@ export class ProductEntity extends BaseEntity {
   })
   price: number;
 
-  @Column({ type: 'varchar', name: 'discount_type', nullable: true })
+  @Column({ enum: ProductDiscountEnum, name: 'discount_type', nullable: true })
   discount_type: string;
 
-  @Column({ type: 'varchar', name: 'discount_value', nullable: true })
-  discount_value: string;
+  @Column({
+    type: 'decimal',
+    precision: 12,
+    scale: 2,
+    name: 'discount_value',
+    nullable: true,
+  })
+  discount_value: number;
 
   @Column({ type: 'varchar', name: 'tags', nullable: true })
   tags: string;
 
-  @ManyToOne(() => CategoryEntity, (categoty) => categoty.products)
-  @JoinColumn({ name: 'category_id' })
-  category: CategoryEntity;
-
-  @OneToMany(() => ReviewsEntity, (reviews) => reviews.product , {
+  @ManyToOne(() => CategoryEntity, (category) => category.products, {
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE',
   })
+  @JoinColumn({ name: 'category_id' })
+  category: CategoryEntity;
+
+  @OneToMany(() => ReviewsEntity, (reviews) => reviews.product)
   reviews: ReviewsEntity[];
 }
