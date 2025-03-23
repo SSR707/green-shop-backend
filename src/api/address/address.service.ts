@@ -48,7 +48,7 @@ export class AddressService {
   }
 
   async findAll() {
-    const address = await this.addressRepository.find({relations : ['user']});
+    const address = await this.addressRepository.find({ relations: ['user'] });
     return {
       status_code: HttpStatus.OK,
       message: 'success',
@@ -71,33 +71,33 @@ export class AddressService {
   }
 
   async update(id: string, updateAddressDto: UpdateAddressDto) {
-      const currentAddress = await this.addressRepository.findOne({
-        where: { id },
-      });
-      if (!currentAddress) {
-        throw new NotFoundException(`Address with id ${id} not found.`);
-      }
-      await this.addressRepository.update(id, {
-        ...updateAddressDto,
-        updated_at: Date.now(),
-      });
-      return {
-        status_code: HttpStatus.OK,
-        message: 'success',
-      };
+    const currentAddress = await this.addressRepository.findOne({
+      where: { id },
+    });
+    if (!currentAddress) {
+      throw new NotFoundException(`Address with id ${id} not found.`);
+    }
+    await this.addressRepository.update(id, {
+      ...updateAddressDto,
+      updated_at: Date.now(),
+    });
+    return {
+      status_code: HttpStatus.OK,
+      message: 'success',
+    };
   }
 
   async remove(id: string) {
-      const currentAddress = await this.addressRepository.findOne({
-        where: { id },
-      });
-      if (!currentAddress) {
-        throw new NotFoundException(`Address with id ${id} not found.`);
-      }
-      await this.addressRepository.delete(id);
-      return {
-        status_code: HttpStatus.OK,
-        message: 'success',
-      };
+    const currentAddress = await this.addressRepository.findOne({
+      where: { id },
+    });
+    if (!currentAddress) {
+      throw new NotFoundException(`Address with id ${id} not found.`);
+    }
+    await this.addressRepository.delete(id);
+    return {
+      status_code: HttpStatus.OK,
+      message: 'success',
+    };
   }
 }

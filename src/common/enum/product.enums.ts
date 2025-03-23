@@ -1,5 +1,4 @@
 export enum ProductDiscountEnum {
-    fixed = 'fixed',
-    percentage = 'percentage'
-  }
-  
+  fixed = 'fixed',
+  percentage = 'percentage',
+}

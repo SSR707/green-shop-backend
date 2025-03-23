@@ -3,7 +3,11 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { ConfigService } from '@nestjs/config';
 import { SignInUserDto, SignUpUserDto, VerifyUserDto } from './dto/index';
 import { OtpEntity, OtpRepository, UserEntity, UserRepository } from 'src/core';
-import { BcryptEncryption, CustomJwtService, EmailService } from 'src/infrastructure';
+import {
+  BcryptEncryption,
+  CustomJwtService,
+  EmailService,
+} from 'src/infrastructure';
 @Injectable()
 export class AuthService {
   constructor(

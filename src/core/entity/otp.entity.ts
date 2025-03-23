@@ -7,8 +7,8 @@ export class OtpEntity extends BaseEntity {
   otp_code: number;
 
   @Column({ type: 'varchar', name: 'email', nullable: true })
-  email: string
+  email: string;
 
   @Column({ type: 'timestamptz', name: 'expired_at', nullable: true })
-  expired_at: Date
+  expired_at: Date;
 }

@@ -21,5 +21,3 @@ export class VerifyUserDto {
   @IsNotEmpty()
   otp_code: number;
 }
-
-

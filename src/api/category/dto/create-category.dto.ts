@@ -40,7 +40,9 @@ export class CreateCategoryDto {
     description: 'Tag of Category',
     example: 'Tag...',
   })
-  @IsString({ message: JSON.stringify({ type: 'tag', message: 'Tag must be a string' }) })
+  @IsString({
+    message: JSON.stringify({ type: 'tag', message: 'Tag must be a string' }),
+  })
   @IsOptional()
   tag: string;
 }

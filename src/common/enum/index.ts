@@ -1,2 +1,2 @@
-export * from './user.enums'
-export * from './product.enums'
+export * from './user.enums';
+export * from './product.enums';

@@ -114,34 +114,33 @@ export class ProductService {
   }
 
   async update(id: string, updateProductDto: UpdateProductDto) {
-      const currentProduct = await this.productRepository.findOne({
-        where: { id },
-      });
-      if (!currentProduct) {
-        throw new NotFoundException(`Product with id ${id} not found.`);
-      }
-      await this.productRepository.update(id, {
-        ...updateProductDto,
-        updated_at: Date.now(),
-      });
-      return {
-        status_code: HttpStatus.OK,
-        message: 'success',
-      };
-
+    const currentProduct = await this.productRepository.findOne({
+      where: { id },
+    });
+    if (!currentProduct) {
+      throw new NotFoundException(`Product with id ${id} not found.`);
+    }
+    await this.productRepository.update(id, {
+      ...updateProductDto,
+      updated_at: Date.now(),
+    });
+    return {
+      status_code: HttpStatus.OK,
+      message: 'success',
+    };
   }
 
   async remove(id: string) {
-      const currentProduct = await this.productRepository.findOne({
-        where: { id },
-      });
-      if (!currentProduct) {
-        throw new NotFoundException(`Product with id ${id} not found.`);
-      }
-      await this.productRepository.delete(id);
-      return {
-        status_code: HttpStatus.OK,
-        message: 'success',
-      };
+    const currentProduct = await this.productRepository.findOne({
+      where: { id },
+    });
+    if (!currentProduct) {
+      throw new NotFoundException(`Product with id ${id} not found.`);
+    }
+    await this.productRepository.delete(id);
+    return {
+      status_code: HttpStatus.OK,
+      message: 'success',
+    };
   }
 }

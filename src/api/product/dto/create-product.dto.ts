@@ -127,18 +127,20 @@ export class CreateProductDto {
   @IsOptional()
   discount_type: ProductDiscountEnum;
 
-
   @ApiProperty({
     type: Number,
     description: 'Discount Value of Product',
-    example: 20, 
+    example: 20,
   })
-  @IsNumber({}, {
-    message: JSON.stringify({
-      type: 'discount_value',
-      message: 'Discount value must be a number',
-    }),
-  })
+  @IsNumber(
+    {},
+    {
+      message: JSON.stringify({
+        type: 'discount_value',
+        message: 'Discount value must be a number',
+      }),
+    },
+  )
   @IsOptional()
   discount_value: number;
 

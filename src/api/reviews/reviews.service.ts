@@ -87,37 +87,33 @@ export class ReviewsService {
   }
 
   async update(id: string, updateReviewDto: UpdateReviewDto) {
-
-      const currentReview = await this.reviewsRepository.findOne({
-        where: { id },
-      });
-      if (!currentReview) {
-        throw new NotFoundException(`Review with id ${id} not found.`);
-      }
-      await this.reviewsRepository.update(id, {
-        ...updateReviewDto,
-        updated_at: Date.now(),
-      });
-      return {
-        status_code: HttpStatus.OK,
-        message: 'success',
-      };
-
+    const currentReview = await this.reviewsRepository.findOne({
+      where: { id },
+    });
+    if (!currentReview) {
+      throw new NotFoundException(`Review with id ${id} not found.`);
+    }
+    await this.reviewsRepository.update(id, {
+      ...updateReviewDto,
+      updated_at: Date.now(),
+    });
+    return {
+      status_code: HttpStatus.OK,
+      message: 'success',
+    };
   }
 
   async remove(id: string) {
-
-      const currentReview = await this.reviewsRepository.findOne({
-        where: { id },
-      });
-      if (!currentReview) {
-        throw new NotFoundException(`Review with id ${id} not found.`);
-      }
-      await this.reviewsRepository.delete(id);
-      return {
-        status_code: HttpStatus.OK,
-        message: 'success',
-      };
-
+    const currentReview = await this.reviewsRepository.findOne({
+      where: { id },
+    });
+    if (!currentReview) {
+      throw new NotFoundException(`Review with id ${id} not found.`);
+    }
+    await this.reviewsRepository.delete(id);
+    return {
+      status_code: HttpStatus.OK,
+      message: 'success',
+    };
   }
 }

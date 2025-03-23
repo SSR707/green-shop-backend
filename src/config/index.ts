@@ -11,7 +11,7 @@ export type ConfigType = {
   ACCESS_TOKEN_TIME: string;
   REFRESH_TOKEN_KEY: string;
   REFRESH_TOKEN_TIME: string;
-  API_URL: string
+  API_URL: string;
 };
 
 const requiredVariables = [
@@ -52,5 +52,5 @@ export const config: ConfigType = {
   API_URL:
     process.env.NODE_ENV === 'dev'
       ? (process.env.LOCAL_API as string)
-      : (process.env.SERVER_API as string)
+      : (process.env.SERVER_API as string),
 };

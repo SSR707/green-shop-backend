@@ -110,37 +110,34 @@ export class UserService {
   }
 
   async update(id: string, updateUserDto: UpdateUserDto) {
-      const currentUser = await this.userRepository.findOne({ where: { id } });
-      if (!currentUser) {
-        throw new NotFoundException(`User with id ${id} not found.`);
-      }
-      if (updateUserDto.password) {
-        updateUserDto.password = await BcryptEncryption.encrypt(
-          updateUserDto.password,
-        );
-      }
-      await this.userRepository.update(id, {
-        ...updateUserDto,
-        updated_at: Date.now(),
-      });
-      return {
-        status_code: HttpStatus.OK,
-        message: 'success',
-      };
-
+    const currentUser = await this.userRepository.findOne({ where: { id } });
+    if (!currentUser) {
+      throw new NotFoundException(`User with id ${id} not found.`);
+    }
+    if (updateUserDto.password) {
+      updateUserDto.password = await BcryptEncryption.encrypt(
+        updateUserDto.password,
+      );
+    }
+    await this.userRepository.update(id, {
+      ...updateUserDto,
+      updated_at: Date.now(),
+    });
+    return {
+      status_code: HttpStatus.OK,
+      message: 'success',
+    };
   }
 
   async remove(id: string) {
-
-      const currentUser = await this.userRepository.findOne({ where: { id } });
-      if (!currentUser) {
-        throw new NotFoundException(`User with id ${id} not found.`);
-      }
-      await this.userRepository.delete(id);
-      return {
-        status_code: HttpStatus.OK,
-        message: 'success',
-      };
-
+    const currentUser = await this.userRepository.findOne({ where: { id } });
+    if (!currentUser) {
+      throw new NotFoundException(`User with id ${id} not found.`);
+    }
+    await this.userRepository.delete(id);
+    return {
+      status_code: HttpStatus.OK,
+      message: 'success',
+    };
   }
 }

@@ -8,7 +8,6 @@ import {
 } from 'class-validator';
 
 export class CreateAddressDto {
-
   @ApiProperty({
     type: String,
     description: 'Title of user address',
@@ -115,13 +114,22 @@ export class CreateAddressDto {
     example: '+998998255556',
   })
   @IsString({
-    message: JSON.stringify({ type: 'phone_number', message: 'Phone Number must be a string' }),
+    message: JSON.stringify({
+      type: 'phone_number',
+      message: 'Phone Number must be a string',
+    }),
   })
   @IsPhoneNumber('UZ', {
-    message: JSON.stringify({ type: 'phone_number', message: 'Phone Number is not valid' }),
+    message: JSON.stringify({
+      type: 'phone_number',
+      message: 'Phone Number is not valid',
+    }),
   })
   @IsNotEmpty({
-    message: JSON.stringify({ type: 'phone_number', message: 'Phone Number is required' }),
+    message: JSON.stringify({
+      type: 'phone_number',
+      message: 'Phone Number is required',
+    }),
   })
   phone_number: string;
 
@@ -131,7 +139,10 @@ export class CreateAddressDto {
     example: 'Landmark',
   })
   @IsString({
-    message: JSON.stringify({ type: 'landmark', message: 'Landmark must be a string' }),
+    message: JSON.stringify({
+      type: 'landmark',
+      message: 'Landmark must be a string',
+    }),
   })
   @IsOptional()
   landmark: string;

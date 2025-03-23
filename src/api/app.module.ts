@@ -10,7 +10,11 @@ import { CategoryModule } from './category/category.module';
 import { ProductModule } from './product/product.module';
 import { AddressModule } from './address/address.module';
 import { ReviewsModule } from './reviews/reviews.module';
-import { CustomJwtModule, EmailModule, FileModule } from '../infrastructure/index'
+import {
+  CustomJwtModule,
+  EmailModule,
+  FileModule,
+} from '../infrastructure/index';
 import { JwtGuard } from 'src/common';
 @Module({
   imports: [
