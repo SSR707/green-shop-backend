@@ -3,6 +3,7 @@ import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
 import { CategoryEntity } from './category.entity';
 import { ReviewsEntity } from './reviews.entity';
 import { ProductDiscountEnum } from 'src/common';
+import { CartItemEntity } from './cart-item.entity';
 @Entity('product')
 export class ProductEntity extends BaseEntity {
   @Column({ type: 'uuid', name: 'category_id' })
@@ -53,4 +54,7 @@ export class ProductEntity extends BaseEntity {
 
   @OneToMany(() => ReviewsEntity, (reviews) => reviews.product)
   reviews: ReviewsEntity[];
+
+  @OneToMany(() => CartItemEntity, (cart_item) => cart_item.product)
+  cart_item: CartItemEntity[];
 }

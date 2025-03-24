@@ -4,3 +4,6 @@ export * from './otp.repository';
 export * from './product.repository';
 export * from './reviews.repository';
 export * from './user.repository';
+export * from './cart-item.repository';
+export * from './cart.repository';
+export * from './order.repository';

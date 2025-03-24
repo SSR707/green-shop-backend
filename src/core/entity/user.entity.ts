@@ -1,8 +1,10 @@
 import { BaseEntity } from 'src/common/database/BaseEntity';
 import { RoleEnum } from 'src/common/enum/user.enums';
-import { Column, Entity, OneToMany } from 'typeorm';
+import { Column, Entity, OneToMany, OneToOne } from 'typeorm';
 import { AddressEntity } from './address.entity';
 import { ReviewsEntity } from './reviews.entity';
+import { OrderEntity } from './order.entity';
+import { CartEntity } from './cart.entity';
 
 @Entity('users')
 export class UserEntity extends BaseEntity {
@@ -32,4 +34,10 @@ export class UserEntity extends BaseEntity {
 
   @OneToMany(() => ReviewsEntity, (reviews) => reviews.user)
   reviews: ReviewsEntity[];
+
+  @OneToMany(() => OrderEntity, (orders) => orders.user)
+  orders: OrderEntity[];
+
+  @OneToOne(() => CartEntity, (cart) => cart.user)
+  cart: CartEntity;
 }

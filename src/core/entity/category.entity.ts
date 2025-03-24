@@ -3,6 +3,10 @@ import { Column, Entity, OneToMany } from 'typeorm';
 import { ProductEntity } from './product.entity';
 @Entity('category')
 export class CategoryEntity extends BaseEntity {
+
+  @Column({ type: 'varchar', name: 'picture', nullable: true })
+  picture: string;
+  
   @Column({ type: 'varchar', name: 'name', nullable: true })
   name: string;
 

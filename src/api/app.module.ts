@@ -16,6 +16,10 @@ import {
   FileModule,
 } from '../infrastructure/index';
 import { JwtGuard } from 'src/common';
+import { OrderModule } from './order/order.module';
+import { CartModule } from './cart/cart.module';
+import { CartItemModule } from './cart-item/cart-item.module';
+import { BannerModule } from './banner/banner.module';
 @Module({
   imports: [
     TypeOrmModule.forRoot({
@@ -55,6 +59,10 @@ import { JwtGuard } from 'src/common';
     ProductModule,
     AddressModule,
     ReviewsModule,
+    OrderModule,
+    CartModule,
+    CartItemModule,
+    BannerModule,
   ],
   controllers: [],
   providers: [{ provide: APP_GUARD, useClass: JwtGuard }],

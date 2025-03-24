@@ -4,6 +4,20 @@ import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
 export class CreateCategoryDto {
   @ApiProperty({
     type: String,
+    description: ' Picture of Category',
+    example: '.jpg',
+  })
+  @IsString({
+    message: JSON.stringify({
+      type: 'picture',
+      message: 'Picture must be a string',
+    }),
+  })
+  @IsOptional()
+  picture: string;
+
+  @ApiProperty({
+    type: String,
     description: 'Title of Category',
     example: 'Products',
   })
