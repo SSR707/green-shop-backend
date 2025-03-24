@@ -39,7 +39,7 @@ export default class Application {
     );
     app.setGlobalPrefix(api);
     const config_swagger = new DocumentBuilder()
-      .setTitle('E Commerce ')
+      .setTitle('E-Commerce')
       .setVersion('1.0')
       .addBearerAuth({
         type: 'http',
