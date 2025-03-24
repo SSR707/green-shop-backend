@@ -1,5 +1,5 @@
-import { ApiProperty } from "@nestjs/swagger";
-import { IsNotEmpty, IsNumber, IsUUID, Min } from "class-validator";
+import { ApiProperty } from '@nestjs/swagger';
+import { IsNotEmpty, IsNumber, IsUUID, Min } from 'class-validator';
 
 export class CreateCartItemDto {
   @ApiProperty({
@@ -21,7 +21,6 @@ export class CreateCartItemDto {
   })
   cart_id: string;
 
-
   @ApiProperty({
     type: String,
     description: 'Product id',
@@ -41,14 +40,31 @@ export class CreateCartItemDto {
   })
   product_id: string;
 
-
   @ApiProperty({
     type: Number,
     description: 'Quantity of product',
     example: 10,
   })
-  @IsNumber({}, { message: JSON.stringify({ type: 'quantity', message: 'Quantity must be a number' }) })
-  @IsNotEmpty({ message: JSON.stringify({ type: 'quantity', message: 'Quantity is required' }) })
-  @Min(1, { message: JSON.stringify({ type: 'quantity', message: 'Quantity must be at least 1' }) })
-  quantity: number
+  @IsNumber(
+    {},
+    {
+      message: JSON.stringify({
+        type: 'quantity',
+        message: 'Quantity must be a number',
+      }),
+    },
+  )
+  @IsNotEmpty({
+    message: JSON.stringify({
+      type: 'quantity',
+      message: 'Quantity is required',
+    }),
+  })
+  @Min(1, {
+    message: JSON.stringify({
+      type: 'quantity',
+      message: 'Quantity must be at least 1',
+    }),
+  })
+  quantity: number;
 }

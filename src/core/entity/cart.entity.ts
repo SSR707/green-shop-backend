@@ -1,11 +1,5 @@
 import { BaseEntity } from 'src/common/database/BaseEntity';
-import {
-  Column,
-  Entity,
-  JoinColumn,
-  OneToMany,
-  OneToOne,
-} from 'typeorm';
+import { Column, Entity, JoinColumn, OneToMany, OneToOne } from 'typeorm';
 import { UserEntity } from './user.entity';
 import { OrderEntity } from './order.entity';
 import { CartItemEntity } from './cart-item.entity';

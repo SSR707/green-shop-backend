@@ -1,4 +1,9 @@
-import { BadRequestException, HttpStatus, Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  HttpStatus,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { config } from 'src/config';
 import { BannerEntity } from 'src/core';
@@ -12,7 +17,7 @@ export class BannerService {
     private readonly fileService: FileService,
   ) {}
 
-  async uploadImg( file: Express.Multer.File) {
+  async uploadImg(file: Express.Multer.File) {
     try {
       const allowedMimeTypes = ['image/jpeg', 'image/png', 'image/gif'];
       if (!allowedMimeTypes.includes(file.mimetype)) {
@@ -22,9 +27,9 @@ export class BannerService {
       }
       const uploadImg = await this.fileService.uploadFile(file, 'banner');
 
-      const imgPath =  config.API_URL + '/' + uploadImg.path;
-      const banner = this.bannerRepository.create({image: imgPath})
-      await this.bannerRepository.save(banner)
+      const imgPath = config.API_URL + '/' + uploadImg.path;
+      const banner = this.bannerRepository.create({ image: imgPath });
+      await this.bannerRepository.save(banner);
       return {
         status_code: HttpStatus.CREATED,
         message: 'success',
@@ -58,18 +63,20 @@ export class BannerService {
   }
 
   async remove(id: string) {
-    const currentBanner = await this.bannerRepository.findOne({ where: { id } });
+    const currentBanner = await this.bannerRepository.findOne({
+      where: { id },
+    });
     if (!currentBanner) {
       throw new NotFoundException(`Banner with id ${id} not found.`);
     }
     const imageUrl = currentBanner.image
-    ? currentBanner.image.replace(`${config.API_URL}/`, '')
-    : '';
+      ? currentBanner.image.replace(`${config.API_URL}/`, '')
+      : '';
 
-  if (await this.fileService.existFile(imageUrl)) {
-    await this.fileService.deleteFile(imageUrl);
-  }
-    await this.bannerRepository.delete(id)
+    if (await this.fileService.existFile(imageUrl)) {
+      await this.fileService.deleteFile(imageUrl);
+    }
+    await this.bannerRepository.delete(id);
     return {
       status_code: HttpStatus.OK,
       message: 'success',

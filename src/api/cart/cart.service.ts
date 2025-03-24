@@ -48,7 +48,7 @@ export class CartService {
   async findUserCart(id: string) {
     const cart = await this.cartRepository.findOne({
       where: { user_id: id },
-      relations: ['user', 'order', 'cart_item' , "cart_item.product"],
+      relations: ['user', 'order', 'cart_item', 'cart_item.product'],
     });
     if (!cart) {
       throw new NotFoundException(`Cart with id ${id} not found.`);

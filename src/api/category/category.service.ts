@@ -81,7 +81,7 @@ export class CategoryService {
       }
       const uploadImg = await this.fileService.uploadFile(file, 'category');
 
-      const imgPath =  config.API_URL + '/' + uploadImg.path;
+      const imgPath = config.API_URL + '/' + uploadImg.path;
       await this.categoryRepository.update(currentCategory.id, {
         picture: imgPath,
         updated_at: Date.now(),

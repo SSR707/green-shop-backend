@@ -6,7 +6,7 @@ import { BannerEntity } from 'src/core';
 import { FileModule } from 'src/infrastructure';
 
 @Module({
-  imports : [TypeOrmModule.forFeature([BannerEntity])  , FileModule],
+  imports: [TypeOrmModule.forFeature([BannerEntity]), FileModule],
   controllers: [BannerController],
   providers: [BannerService],
 })

@@ -5,7 +5,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { CartEntity, CartItemEntity, ProductEntity } from 'src/core';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([CartItemEntity , CartEntity , ProductEntity])],
+  imports: [
+    TypeOrmModule.forFeature([CartItemEntity, CartEntity, ProductEntity]),
+  ],
   controllers: [CartItemController],
   providers: [CartItemService],
 })
