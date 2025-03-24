@@ -45,5 +45,5 @@ jobs:
           git pull
           npm i 
           npm run build
-          npx pm2 restart 
+          npx pm2 restart e-commerce-backend
           ENDSSH
