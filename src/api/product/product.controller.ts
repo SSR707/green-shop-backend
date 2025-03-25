@@ -50,6 +50,7 @@ export class ProductController {
 
     return this.productService.findAll(page , limit , filter);
   }
+  
 
   @UseGuards(AdminGuard)
   @ApiBearerAuth()
