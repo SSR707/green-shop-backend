@@ -87,7 +87,12 @@ export class AuthService {
       signupAuthDto.password,
     );
     const otp = Math.floor(Math.random() * 100000) + 1;
-    await this.emailServices.sendActivedOtp(signupAuthDto.email, 'otp', otp);
+    await this.emailServices.sendActivedOtp(
+      signupAuthDto.email,
+      'otp',
+      signupAuthDto.fullname,
+      otp,
+    );
     const user = this.userRepository.create({ ...signupAuthDto });
     await this.userRepository.save(user);
     const OtpEntity = this.otpRepository.create({

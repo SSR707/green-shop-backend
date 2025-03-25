@@ -47,14 +47,25 @@ export class ProductService {
     }
   }
 
-  async findAll() {
-    const products = await this.productRepository.find({
+  async findAll(
+    page: number | undefined,
+    limit: number | undefined,
+    filter: string | undefined,
+  ) {
+    const parsedFilter = filter ? JSON.parse(filter) : {};
+    const [products, totalCount] = await this.productRepository.findAndCount({
+      where: parsedFilter,
       relations: ['category', 'reviews'],
+      skip: page && limit ? (page - 1) * limit : 0,
+      take: limit || 10,
     });
     return {
       status_code: HttpStatus.OK,
       message: 'success',
-      data: products,
+      data: {
+        products,
+        productCount: totalCount
+      },
     };
   }
 

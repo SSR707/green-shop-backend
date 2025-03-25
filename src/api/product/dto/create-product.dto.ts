@@ -8,7 +8,11 @@ import {
   IsString,
   IsUUID,
 } from 'class-validator';
-import { ProductDiscountEnum } from 'src/common';
+import {
+  ProductDiscountEnum,
+  ProductSizeEnum,
+  ProductTypeEnum,
+} from 'src/common';
 
 export class CreateProductDto {
   @ApiProperty({
@@ -154,4 +158,30 @@ export class CreateProductDto {
   })
   @IsOptional()
   tags: string;
+
+  @ApiProperty({
+    enum: ProductSizeEnum,
+    description: 'Size of Product',
+    example: 'small',
+  })
+  @IsEnum(ProductSizeEnum, {
+    message: JSON.stringify({
+      type: 'size',
+      message: 'size must be either "small" or "medium or large"',
+    }),
+  })
+  size: ProductSizeEnum;
+
+  @ApiProperty({
+    enum: ProductTypeEnum,
+    description: 'Type of Product',
+    example: 'new',
+  })
+  @IsEnum(ProductTypeEnum, {
+    message: JSON.stringify({
+      type: 'type',
+      message: 'Type must be either "new"  or "sale"',
+    }),
+  })
+  type: ProductTypeEnum;
 }

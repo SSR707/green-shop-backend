@@ -10,11 +10,12 @@ import {
   UseInterceptors,
   UploadedFile,
   BadRequestException,
+  Query,
 } from '@nestjs/common';
 import { ProductService } from './product.service';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
-import { ApiBearerAuth, ApiBody, ApiConsumes, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiBody, ApiConsumes, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { AdminGuard, Public } from 'src/common';
 
@@ -32,8 +33,22 @@ export class ProductController {
 
   @Public()
   @Get()
-  findAll() {
-    return this.productService.findAll();
+  @ApiQuery({ name: 'page', required: false, type: Number, example: 1 })
+  @ApiQuery({ name: 'limit', required: false, type: Number, example: 10 })
+  @ApiQuery({ 
+    name: 'filter', 
+    required: false, 
+    type: String, 
+    example: '{"category":12,"type":"new"}' 
+  })
+  @ApiResponse({ status: 200, description: 'List of products' })
+  findAll(
+    @Query('page') page?: number,
+    @Query('limit') limit?: number,
+    @Query('filter') filter?: string,
+  ) {
+
+    return this.productService.findAll(page , limit , filter);
   }
 
   @UseGuards(AdminGuard)

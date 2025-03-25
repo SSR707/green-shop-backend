@@ -2,7 +2,11 @@ import { BaseEntity } from 'src/common/database/BaseEntity';
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
 import { CategoryEntity } from './category.entity';
 import { ReviewsEntity } from './reviews.entity';
-import { ProductDiscountEnum } from 'src/common';
+import {
+  ProductDiscountEnum,
+  ProductSizeEnum,
+  ProductTypeEnum,
+} from 'src/common';
 import { CartItemEntity } from './cart-item.entity';
 @Entity('product')
 export class ProductEntity extends BaseEntity {
@@ -44,6 +48,12 @@ export class ProductEntity extends BaseEntity {
 
   @Column({ type: 'varchar', name: 'tags', nullable: true })
   tags: string;
+
+  @Column({ enum: ProductSizeEnum, name: 'size', nullable: true })
+  size: string;
+
+  @Column({ enum: ProductTypeEnum, name: 'type', nullable: true })
+  type: string;
 
   @ManyToOne(() => CategoryEntity, (category) => category.products, {
     onDelete: 'CASCADE',
