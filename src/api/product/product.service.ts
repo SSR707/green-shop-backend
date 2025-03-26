@@ -60,6 +60,9 @@ export class ProductService {
         parsedFilter?.minPrice ? Number(parsedFilter.minPrice) : 0,
         parsedFilter?.maxPrice ? Number(parsedFilter.maxPrice) : Number.MAX_SAFE_INTEGER
       ); 
+      delete where.minPrice;
+      delete where.maxPrice;
+      
     }
     const [products, totalCount] = await this.productRepository.findAndCount({
       where,
