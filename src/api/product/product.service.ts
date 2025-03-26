@@ -54,23 +54,22 @@ export class ProductService {
     filter: string | undefined,
   ) {
     const parsedFilter = filter ? JSON.parse(filter) : {};
-    const where: any = { ...parsedFilter };
     const pageNumber = Number(page) || 1;
     const limitNumber = Number(limit) || 10;
-    if (parsedFilter.minPrice || parsedFilter.maxPrice) {
-      const min = parsedFilter.minPrice ? Number(parsedFilter.minPrice) : 0;
-      const max = parsedFilter.maxPrice ? Number(parsedFilter.maxPrice) : Number.MAX_SAFE_INTEGER;
-      if (!isNaN(min) && !isNaN(max)) {
-        where.price = Between(min, max);
-      }
-    }
-    console.log("Yuborilayotgan filter:", where);
-    console.log("Page:", pageNumber, "Limit:", limitNumber);
-    const [products, totalCount] = await this.productRepository.findAndCount({
-      where,
+    const min = parsedFilter.minPrice ? Number(parsedFilter.minPrice) : 0;
+    const max = parsedFilter.maxPrice
+      ? Number(parsedFilter.maxPrice)
+      : Number.MAX_SAFE_INTEGER;
+
+    const [data, totalCount] = await this.productRepository.findAndCount({
+      where: parsedFilter,
       relations: ['category', 'reviews'],
       skip: (pageNumber - 1) * limitNumber,
       take: limitNumber,
+    });
+
+    const products = data.filter((item) => {
+      item.price > min && item.price < max;
     });
     return {
       status_code: HttpStatus.OK,
