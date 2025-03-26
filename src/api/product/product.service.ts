@@ -68,9 +68,7 @@ export class ProductService {
       take: limitNumber,
     });
 
-    const products = data.filter((item) => {
-      item.price > min && item.price < max;
-    });
+    const products = data.filter((item) => item.price >= min && item.price <= max);
     return {
       status_code: HttpStatus.OK,
       message: 'success',
