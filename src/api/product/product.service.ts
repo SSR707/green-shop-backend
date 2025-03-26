@@ -15,6 +15,7 @@ import {
   ProductRepository,
 } from 'src/core';
 import { FileService } from 'src/infrastructure';
+import { Between } from 'typeorm';
 
 @Injectable()
 export class ProductService {
@@ -53,8 +54,15 @@ export class ProductService {
     filter: string | undefined,
   ) {
     const parsedFilter = filter ? JSON.parse(filter) : {};
+    const where: any = { ...parsedFilter };
+    if (parsedFilter.minPrice || parsedFilter.maxPrice) {
+      where.price = Between(
+        parsedFilter.minPrice ?? 0,
+        parsedFilter.maxPrice ?? Number.MAX_SAFE_INTEGER,
+      );
+    }
     const [products, totalCount] = await this.productRepository.findAndCount({
-      where: parsedFilter,
+      where,
       relations: ['category', 'reviews'],
       skip: page && limit ? (page - 1) * limit : 0,
       take: limit || 10,
@@ -64,7 +72,7 @@ export class ProductService {
       message: 'success',
       data: {
         products,
-        productCount: totalCount
+        productCount: totalCount,
       },
     };
   }
