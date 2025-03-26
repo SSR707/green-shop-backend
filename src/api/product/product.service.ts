@@ -64,6 +64,8 @@ export class ProductService {
         where.price = Between(min, max);
       }
     }
+    console.log("Yuborilayotgan filter:", where);
+    console.log("Page:", pageNumber, "Limit:", limitNumber);
     const [products, totalCount] = await this.productRepository.findAndCount({
       where,
       relations: ['category', 'reviews'],
