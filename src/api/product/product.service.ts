@@ -55,6 +55,8 @@ export class ProductService {
   ) {
     const parsedFilter = filter ? JSON.parse(filter) : {};
     const where: any = { ...parsedFilter };
+    const pageNumber = Number(page) || 1;
+    const limitNumber = Number(limit) || 10;
     if (parsedFilter.minPrice || parsedFilter.maxPrice) {
       const min = parsedFilter.minPrice ? Number(parsedFilter.minPrice) : 0;
       const max = parsedFilter.maxPrice ? Number(parsedFilter.maxPrice) : Number.MAX_SAFE_INTEGER;
@@ -65,8 +67,8 @@ export class ProductService {
     const [products, totalCount] = await this.productRepository.findAndCount({
       where,
       relations: ['category', 'reviews'],
-      skip: page && limit ? (page - 1) * limit : 0,
-      take: limit || 10,
+      skip: (pageNumber - 1) * limitNumber,
+      take: limitNumber,
     });
     return {
       status_code: HttpStatus.OK,
