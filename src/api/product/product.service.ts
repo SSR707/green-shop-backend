@@ -102,9 +102,9 @@ export class ProductService {
         ? currentProduct.picture.replace(`${config.API_URL}/`, '')
         : '';
 
-      if (await this.fileService.existFile(imageUrl)) {
-        await this.fileService.deleteFile(imageUrl);
-      }
+      // if (await this.fileService.existFile(imageUrl)) {
+      //   await this.fileService.deleteFile(imageUrl);
+      // }
       const uploadImg = await this.fileService.uploadFile(file, 'products');
 
       const imgPath = config.API_URL + '/' + uploadImg.path;

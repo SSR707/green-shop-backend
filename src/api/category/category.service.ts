@@ -76,9 +76,9 @@ export class CategoryService {
         ? currentCategory.picture.replace(`${config.API_URL}/`, '')
         : '';
 
-      if (await this.fileService.existFile(imageUrl)) {
-        await this.fileService.deleteFile(imageUrl);
-      }
+      // if (await this.fileService.existFile(imageUrl)) {
+      //   await this.fileService.deleteFile(imageUrl);
+      // }
       const uploadImg = await this.fileService.uploadFile(file, 'category');
 
       const imgPath = config.API_URL + '/' + uploadImg.path;
