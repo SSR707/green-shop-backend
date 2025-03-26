@@ -56,10 +56,11 @@ export class ProductService {
     const parsedFilter = filter ? JSON.parse(filter) : {};
     const where: any = { ...parsedFilter };
     if (parsedFilter.minPrice || parsedFilter.maxPrice) {
-      where.price = Between(
-        parsedFilter.minPrice ? Number(parsedFilter.minPrice) : 0,
-        parsedFilter.maxPrice ? Number(parsedFilter.maxPrice) : Number.MAX_SAFE_INTEGER
-      ); 
+      const min = parsedFilter.minPrice ? Number(parsedFilter.minPrice) : 0;
+      const max = parsedFilter.maxPrice ? Number(parsedFilter.maxPrice) : Number.MAX_SAFE_INTEGER;
+      if (!isNaN(min) && !isNaN(max)) {
+        where.price = Between(min, max);
+      }
     }
     const [products, totalCount] = await this.productRepository.findAndCount({
       where,
