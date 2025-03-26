@@ -54,21 +54,19 @@ export class ProductService {
     filter: string | undefined,
   ) {
     const parsedFilter = filter ? JSON.parse(filter) : {};
-    const pageNumber = Number(page) || 1;
-    const limitNumber = Number(limit) || 10;
-    const min = parsedFilter.minPrice ? Number(parsedFilter.minPrice) : 0;
-    const max = parsedFilter.maxPrice
-      ? Number(parsedFilter.maxPrice)
-      : Number.MAX_SAFE_INTEGER;
-
-    const [data, totalCount] = await this.productRepository.findAndCount({
-      where: parsedFilter,
+    const where: any = { ...parsedFilter };
+    if (parsedFilter?.minPrice || parsedFilter?.maxPrice) {
+      where.price = Between(
+        parsedFilter?.minPrice ? Number(parsedFilter.minPrice) : 0,
+        parsedFilter?.maxPrice ? Number(parsedFilter.maxPrice) : Number.MAX_SAFE_INTEGER
+      ); 
+    }
+    const [products, totalCount] = await this.productRepository.findAndCount({
+      where,
       relations: ['category', 'reviews'],
-      skip: (pageNumber - 1) * limitNumber,
-      take: limitNumber,
+      skip: page && limit ? (page - 1) * limit : 0,
+      take: limit || 10,
     });
-
-    const products = data.filter((item) => item.price >= min && item.price <= max);
     return {
       status_code: HttpStatus.OK,
       message: 'success',
